@@ -1,9 +1,14 @@
-let card = document.querySelector('.cardContainer');
+const card = document.querySelector('.cardContainer');
 let nextButton = document.getElementById('nextButton');
 let frontText = document.getElementById('frontText');
 let backText = document.getElementById('backText');
 let front = document.querySelector('.front');
 let back = document.querySelector('.back');
+
+const photoContainer = document.getElementById('photocontainer');
+const questions = document.getElementById('questions');
+const questionText = document.getElementById('questiontext');
+const options = document.getElementById('options');
 
 
 
@@ -102,7 +107,7 @@ const data = [
     {
         type: 'card',
         front: 'Өнеркәсіпте сутекті метанды су бумен реакция нәтижесінде алады: \
-        CH\u2084 + H\u2082 -> [Ni катализатор қатысында және 1300C]',
+        CH\u2084 + H\u2082O -> [Ni катализатор қатысында және 1300C]',
         back: 'CO + 3H\u2082',
     },
     {
@@ -177,9 +182,6 @@ function randArr(arr) {
 }
 
 
-const photoContainer = document.getElementById('photocontainer');
-const questionText = document.getElementById('questiontext');
-const options = document.getElementById('options');
 nextBtn.addEventListener('click', (e) => {
     e.preventDefault();
     options.innerHTML = "";
@@ -192,6 +194,8 @@ nextBtn.addEventListener('click', (e) => {
 function App() {
     randData = randArr(data);
     if (randData.type == 'truefalse') {
+        card.setAttribute('style', 'display: none');
+        questions.setAttribute('style', 'display: flex');
         backText.innerHTML = "";
         frontText.innerHTML = "";
         const btnTrue = document.createElement('span');
@@ -222,12 +226,12 @@ function App() {
 
 
         if (randData.photo) {
-            photoContainer.setAttribute('height', '35%');
+            photoContainer.setAttribute('style', 'display: flex');
             const photoquestion = document.createElement('img');
             photoquestion.setAttribute('src',`${randData.photo}`)
             photoContainer.appendChild(photoquestion);
         } else {
-
+            photoContainer.setAttribute('style', 'display: none');
         }
         const h3question = document.createElement('h1');
         h3question.innerHTML = randData.question;
@@ -235,7 +239,9 @@ function App() {
 
     } 
     else if (randData.type == 'card') {
-
+        card.setAttribute('style', 'display: flex');
+        questions.setAttribute('style', 'display: none');
+        photoContainer.setAttribute('style', 'display: none');
         if (card.classList.contains('is-flipped')) {
             back.classList.remove('makeBack');
             back.classList.add('makeFront');
